@@ -1,0 +1,341 @@
+﻿#include <iostream>
+
+
+int main() {
+	
+	std::cout << "hello world\n";
+	char a = 120;
+	char* ptr = &a;
+	auto b = 5;
+	bool flag = false;
+	
+	uint16_t buf{ 4 };
+	int d(4);
+
+	wchar_t abc = 'b';
+	const double pi = 3.14;
+
+	//int paranter{ 1.2 }; // parantez derleme zamanında hatayi verir
+	int cast_val = 10;
+	cast_val = static_cast<int>(5.8);
+
+	std::cout << abc;
+
+	std::cout<< "buf = "<< buf << "\n";
+	std::cout << "d = "<< d << "\n";
+	std::cout << flag << "\n";
+	std::cout << sizeof(b)<<"\n";
+	std::cout << b << "\n";
+	std::cout << *ptr;
+
+	return 0;
+}
+
+
+***************************************
+
+/// FUNCTION OVERLOAD
+
+
+#include <iostream>
+
+
+int func(int a, int b) {
+
+	std::cout << "integer\n";
+	return a + b;
+}
+
+double func(double a, double b) {
+
+	std::cout << "double\n";
+	return a + b;
+}
+int main() {
+	
+	std::cout << func(4, 2)<< "\n";
+	std::cout << func(4.2, 2.3);
+
+	return 0;
+}
+
+
+***************************************
+
+///// FUNCTION DEFAULT PARAMETER
+
+
+#include <iostream>
+
+
+void print(std::string text = "called print",int a = 5, bool flag = false) {
+
+	std::cout << text;
+}
+
+
+int main() {
+	
+	print("merhaba");
+	return 0;
+}
+
+
+
+***************************************
+
+#include <iostream>
+
+using namespace std;
+
+using callback = int(*)(int, int);
+
+
+int topla(int a, int b) {
+	return a + b;
+}
+
+int bol(int a, int b) {
+	return a / b;
+}
+
+int carp(int a, int b) {
+	return a * b;
+}
+
+int cikar(int a, int b) {
+	return a - b;
+}
+
+int func(int(*callback)(int, int), int a, int b) {
+	return callback(a, b);
+}
+int main() {
+	
+	cout << func(topla, 10, 5) << "\n";
+	cout << func(cikar, 10, 5) << "\n";
+	cout << func(bol, 10, 5) << "\n";
+	cout << func(carp, 10, 5) << "\n";
+
+	return 0;
+}
+
+
+*****************************************
+
+INLINE FONKSIYON 
+
+BU FONKSIYONLAR BELLEKTE YER KAPLAMAZ VE DIREK FONKSYIN ICERISI CAGRILAN YERE KOPYALANIR
+
+#include <iostream>
+
+using namespace std;
+
+inline int func(int a, int b) {
+	return a + b;
+}
+int main() {
+	
+	cout << func(10, 5) << "\n";
+	
+	return 0;
+}
+
+
+********************************************
+
+****///DİZİLER
+
+#include <iostream>
+
+using namespace std;
+
+int main() {
+	
+	// 5 degerin hepsi 0 'dır;
+	int ar[5] = {};
+	cout << ar[2] << endl;
+
+	return 0;
+
+*******************************************
+
+#include <iostream>
+#include <iterator>
+#include <string>
+
+using namespace std;
+
+string name = "demo";
+
+int main() {
+	
+	int ar[3][2] = { {1,2},{3,4},{5,6} };
+	int len = size(ar[0]);
+
+	cout << len << endl;
+	cout << size(ar);
+
+	return 0;
+}
+
+*************************************
+
+#include <iostream>
+#include <iterator>
+#include <string>
+
+using namespace std;
+
+int main() {
+	
+	const int size = 3;
+	//constexpr int size1 = 3;
+	int ar[size];
+
+	
+	return 0;
+
+*************************************
+
+ #include <iostream>
+#include <iterator>
+#include <string>
+
+using namespace std;
+
+void display_array(int ar[], int size) {
+	cout << *ar << endl;
+	for (size_t i = 0; i < size; i++)
+	{
+		cout << ar[i] << endl;
+	}
+}
+
+void disp_char(char ar[], size_t size) {
+	for (size_t i = 0; i < size; i++)
+	{
+		cout << ar[i] << "";
+	}
+}
+
+int main() {
+	
+	int ar[4]{ 1,2,3,4 };
+	char ar1[]{ "merhaba" };
+	
+	display_array(ar, size(ar));
+	cout << endl;
+	disp_char(ar1, size(ar1));
+
+	return 0;
+}
+
+
+
+
+
+/////// CLASS VERI SINIFI *************
+
+#include <iostream>
+#include <iterator>
+#include <string>
+
+using namespace std;
+
+
+class Kedi {
+private:
+	string miyav = "Mi yavvvvv";
+	int year = 4;
+public:
+	void GetApparence() {
+		cout << miyav<<endl;
+	}
+	void GetYear() {
+		cout << year << endl;
+	}
+
+};
+
+class Kopek {
+private:
+	string miyav = "HAV HAV HAV";
+	int year = 3;
+public:
+	void GetApparence() {
+		cout << miyav << endl;
+	}
+	void GetYear() {
+		cout << year << endl;
+	}
+
+};
+int main() {
+	
+	Kedi kedi;
+	Kopek kopek;
+	kopek.GetApparence();
+	kopek.GetYear();
+	kedi.GetApparence();
+	kedi.GetYear();
+	return 0;
+}
+
+
+//***** CONSTRUCTOR // DESTRUCTOR ****** ////
+
+
+#include <iostream>
+#include <iterator>
+#include <string>
+
+using namespace std;
+
+
+class AppConstructor {
+public:
+	string msg;
+	int counter;
+
+	AppConstructor() {
+		counter = 5;
+		msg = "Demo message";
+		cout << "AppConstructor called by programmer" << endl;
+	}
+	
+	AppConstructor(string message, int cnt) {
+		msg = message;
+		counter = cnt;
+		cout << "AppConstructor called by programmer1" << endl;
+	}
+	
+	AppConstructor(string message) {
+		msg = message;
+		cout << "AppConstructor called by programmer2" << endl;
+	}
+
+	~AppConstructor() {
+		cout << "AppConstructor destroyed by programmer3" << endl;
+	}
+
+	void disp_msg() {
+		for (size_t i = 0; i < counter; i++)
+		{
+			cout << msg << endl;
+		}
+
+	}
+
+};
+
+int main() {
+	
+	AppConstructor demo;
+	
+	//AppConstructor demo("merhaba",4);
+	//AppConstructor demo("selam");
+	demo.disp_msg();
+
+	return 0;
+}
