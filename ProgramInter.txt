@@ -339,3 +339,1152 @@ int main() {
 
 	return 0;
 }
+
+
+///****** KALITIM ***** /////////// INHERITIANCE ******
+
+
+Bir sınıftan kalıtımla özellik alındığı zaman !!!
+-Yeni sınıf oluşturulur ise miras aldığı sınıftanda bir nesne ramde olusturulur. 
+Yani 2 sınıftan miras alınarak yeni bir object olusturulur ise 3 adet nesne ramde yer kaplar
+
+
+#include <iostream>
+#include <iterator>
+#include <string>
+
+using namespace std;
+
+
+class Silah {
+public:
+	string name;
+	uint16_t mermiKapasitesi;
+};
+
+class AK47 : public Silah {
+public:
+	bool kurmali;
+
+	void ates_et() {
+		;
+	}
+};
+
+class Pompali : public Silah {
+public:
+	bool tekli_coklu;
+
+	void ates_et() {
+		;
+	}
+};
+
+
+int main() {
+	
+	AK47 ak;
+	ak.name = "ak47";
+	Pompali pomp;
+	pomp.name = "pompali";
+	return 0;
+}
+
+
+
+***********************************
+
+class Silah {
+protected:
+	int deger;
+public:
+	string name;
+	uint16_t mermiKapasitesi;
+
+	Silah() {
+		cout << "Silah olusturuldu.." << endl;
+	}
+
+	~Silah() {
+		cout << "Silah bitti.." << endl;
+	}
+
+};
+
+class AK47 : public Silah {
+public:
+	bool kurmali;
+
+	void ates_et() {
+		;
+	}
+
+	AK47() {
+		cout << "Ak47 olusturuldu..." << endl;
+	}
+	~AK47() {
+		cout << "AK47 bittii.." << endl;
+	}
+};
+
+class Pompali : public Silah {
+public:
+	bool tekli_coklu;
+
+	void ates_et() {
+		;
+	}
+};
+
+
+int main() {
+	
+	AK47 ak;
+	ak.name = "ak47";
+
+	return 0;
+}
+
+
+************* REFERANS İLE CAGIRMA ********* POINTER ILE CAGIRMA ******** DEGER ILE CAGIRMA **
+
+
+void yaz(AK47& ak47) {
+	ak47.ates_et();
+}
+
+void yaz(AK47& ak47, AK47* akk47) {
+	ak47.ates_et();
+	akk47->ates_et();
+}
+
+
+int main() {
+	
+	AK47 ak;
+	ak.name = "ak47";
+	AK47& myak47 = ak;
+	AK47* ptrak = &ak;
+	yaz(myak47);
+	yaz(myak47,ptrak);
+
+	return 0;
+}
+
+
+///******** REFERANS İLE CAGIRMA *****/////////////
+
+int main() {
+	
+	int value = 10;
+
+	int& refvalue = value;
+
+	refvalue = 5;
+
+	cout << &refvalue << endl;
+	cout << &value << endl;
+}
+
+
+///*********** BASE CLASS ILE REF ALMA ***** UPCASTING //// BASE <- ALT CLASSLAR 
+
+int main() {
+	
+	AK47 ak47;
+	Silah* ptrak47 = &ak47;
+	ptrak47->name = "degistirildi";
+	cout << ak47.name << endl;
+	ptrak47->~Silah();
+}
+
+
+*****
+
+void show_name(Silah* ptr) {
+	cout << ptr->name << endl;
+}
+
+
+int main() {
+	
+	AK47 ak47;
+	ak47.name = "ak47";
+
+	Pompali pomp;
+	pomp.name = "pompali";
+
+	show_name(&ak47);
+	show_name(&pomp);
+}
+
+
+ENCAPSULATION	ABSTRACTION		POLYMORPHISM		INHERITANCE		CLASS OBJECT
+
+
+
+
+
+*************ENCAPSULATION*****************
+
+#include <iostream>
+#include <iterator>
+#include <string>
+
+using namespace std;
+
+
+class Payment {
+private :
+	float total;
+public:
+	string name;
+
+	void set_Total(float t) {
+		if (t < 0) {
+			cout << "Error !!";
+			total = 0;
+		}
+		else
+			total = t;
+	}
+
+	void show_total() {
+		cout << "total = " << total << endl;
+	}
+};
+
+
+
+int main() {
+	
+	Payment pay,pay1;
+	pay.set_Total(24.4);
+	pay.show_total();
+
+	pay1.set_Total(-24.4);
+	pay1.show_total();
+
+}
+
+
+//// Virtual Function ///////****
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Silah {
+public:
+	string name;
+
+	virtual void ates_et() = 0;
+};
+
+class AK47 : public Silah {
+public:
+
+	void ates_et() {
+		cout << "Ak47 ates edildi" << endl;
+	}
+
+};
+
+class Pompali : public Silah {
+public:
+
+	void ates_et() {
+		cout << "pompali ates edildi " << endl;
+	}
+};
+
+void silah_shoot(Silah* ptr) {
+	ptr->ates_et();
+;}
+
+int main() {
+	AK47 ak;
+	Pompali pompali;
+	silah_shoot(&ak);
+	silah_shoot(&pompali);
+}
+
+
+
+
+//**** POLYMORPHISM *****////
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Silah {
+public:
+	string name;
+
+	virtual void ates_et() {
+		cout << "Silah ates edildi" << endl;
+	}
+};
+
+class AK47 : public Silah {
+public:
+
+	void ates_et() {
+		cout << "Ak47 ates edildi" << endl;
+	}
+
+};
+
+class Pompali : public Silah {
+public:
+
+	void ates_et() {
+		cout << "pompali ates edildi " << endl;
+	}
+};
+
+void silah_shoot(Silah* ptr) {
+	ptr->ates_et();
+;}
+
+int main() {
+	Silah silah;
+	AK47 ak;
+	Pompali pompali;
+	silah_shoot(&ak);
+	silah_shoot(&pompali);
+	silah_shoot(&silah);
+}
+
+
+
+///**** OVERRIDE (METOT EZME) ////
+
+Bir üst sınıfın metodunu tekrardan aynı isimde yazarak metot ezme gerceklestrilir..
+
+Virtual metottan farklı olarak class lar üzerinde işlem yaparken metot ezilir
+ancak herhangi bir fonksiyon üzerinden upcasting yapılarak erişim sağlanmak istenirse
+burada virtual anahtar sözzcüğünü kullanmamız gerekir. 
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Silah {
+public:
+	string name;
+
+	void ates_et() {
+		cout << "Silah ates edildi" << endl
+			;
+	}
+};
+
+class AK47 : public Silah {
+public:
+
+	void ates_et() {
+		cout << "Ak47 ates edildi" << endl;
+	}
+
+};
+
+class Pompali : public Silah {
+public:
+
+	void ates_et() {
+		cout << "pompali ates edildi " << endl;
+	}
+};
+
+
+int main() {
+	Silah silah;
+	AK47 ak;
+	Pompali pompali;
+
+	ak.ates_et();
+	pompali.ates_et();
+	silah.ates_et();
+}
+
+
+
+****////	ABSTRACTION		////****
+
+int main() {
+	//Hayvan hayvan;  // Hayvan sınıfı sanal sınıftır bu yüzden object olusturulamaz amac soyutlama yapmaktır
+	// Bu sayede her bir class yapısı icin ayrı fonksiyon yapmak yerine hepsinin kalıtım aldığı base classtan
+	// ortak olarak upcast yapılır ve tek fonksiyon ile kontrol edilebilir..
+
+}
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// HAYVAN SINIFI SOYUTLAMA KATMANI 
+class Hayvan {
+public:
+	virtual void sescikar() = 0;
+};
+
+class Kedi :public Hayvan {
+public :
+	void sescikar() {
+		cout << "miyav.." << endl;
+	}
+};
+
+class Kopek :public Hayvan {
+public:
+	void sescikar() {
+		cout << "Havhav.." << endl;
+	}
+};
+
+class Fare :public Hayvan {
+public:
+	void sescikar() {
+		cout << "cikcik.." << endl;
+	}
+};
+
+void tumsescikar(Hayvan* hptr) {
+	hptr->sescikar();
+}
+int main() {
+	Kedi kedi;
+	Kopek kopek;
+	Fare fare;
+	tumsescikar(&kedi);
+	tumsescikar(&kopek);
+	tumsescikar(&fare);
+}
+
+
+///******* CONST OBJECT *******\\\\\\\\\
+//SINIF ICERSIINDEKI TUM DEGISKENLER CONST OLMSUTUR.. HICBIRISI DEGISTIRILEMEZ
+
+class Silah {
+
+public:
+	int value;
+	int getValue() {
+		return value;
+	}
+};
+
+int main() {
+	const Silah silah;
+	silah.value = 100;
+
+}
+
+************ CONST METHOD *********************
+
+#include <iostream>
+#include <string>
+
+// CONST METHOD
+
+using namespace std;
+
+class Silah {
+private:
+	int value = 10;
+public:
+
+	int getValue() const {
+		//50 satir kod hicbiryerde deger deigisimi istemiyorum
+		value = 50; //hata
+		return value;
+	}
+};
+
+int main() {
+	Silah silah;
+	silah.getValue();
+}
+
+/// ***** CONST VARIABLE **** ///
+
+#include <iostream>
+#include <string>
+
+// CONST variable
+
+using namespace std;
+
+class Silah {
+private:
+	int value = 10;
+public:
+
+	const int* getValue(){
+		return &value;
+	}
+};
+
+int main() {
+	Silah silah;
+	int * ptr = silah.getValue(); // const addres degistirilemez..
+}
+
+
+// CONST variable
+
+using namespace std;
+
+class Silah {
+private:
+	int value = 10;
+public:
+
+	 int const* getValue(){
+		return &value;
+	}
+};
+
+int main() {
+	Silah silah;
+	int * ptr = silah.getValue(); // const addres degistirilemez..
+}
+
+
+
+
+/////***** STATIC KEYWORD *******///////////////
+
+#include <iostream>
+#include <string>
+
+// static function
+
+using namespace std;
+
+class Kitap {
+private:
+	int adet = 10;
+public:
+	
+};
+
+void test() {
+	static int a = 0;
+	a++;
+	cout << "a = " << a << endl;
+}
+int main() {
+	test();
+	test();
+	test();
+	test();
+	
+}
+
+
+**////////// static function /////////**
+
+#include <iostream>
+#include <string>
+
+// static function
+
+using namespace std;
+
+class Kitap {
+private:
+	int adet = 10;
+public:
+	
+};
+
+void test() {
+	static int a = 0;
+	a++;
+	cout << "a = " << a << endl;
+}
+int main() {
+	test();
+	test();
+	test();
+	test();
+	
+}
+
+
+///*** STATIC METHOD ***/////
+
+#include <iostream>
+#include <string>
+
+// static methot
+
+using namespace std;
+
+class Kitap {
+public:
+	static int adet;
+	
+};
+
+int Kitap::adet = 10;
+
+int main() {
+	Kitap kitap1;
+	Kitap kitap2;
+	Kitap kitap3;
+
+	kitap1.adet = 10;
+	cout << kitap2.adet;
+	kitap3.adet = 50;
+	cout << kitap1.adet;
+
+}
+
+
+#include <iostream>
+#include <string>
+
+// static methot
+
+using namespace std;
+
+class Kitap {
+public:
+	static int adet;
+
+	Kitap() {
+		adet++;
+	}
+	void setValue(int val) {
+		adet = val;
+	}
+	
+};
+
+int Kitap::adet = 0;
+
+int main() {
+	Kitap kitap1;
+	Kitap kitap2;
+	Kitap kitap3;
+
+	cout << kitap1.adet << endl;
+	cout << Kitap::adet << endl;
+
+}
+
+
+#include <iostream>
+#include <string>
+
+// static methot
+
+using namespace std;
+
+class Kitap {
+public:
+	static int adet;
+
+	Kitap() {
+		adet++;
+	}
+	static int getValue() {
+		return adet;
+	}
+	
+};
+
+int Kitap::adet = 0;
+
+int main() {
+	Kitap kitap1;
+	Kitap kitap2;
+	Kitap kitap3;
+
+	cout << kitap1.adet << endl;
+	cout << Kitap::getValue() << endl;
+
+}
+
+
+													/// Friend  ////
+
+#include <iostream>
+#include <string>
+
+//	Friend fonksiyon 
+
+using namespace std;
+
+class Payment {
+private:
+	 int tutar;
+
+public:
+	int getValue() {
+		return tutar;
+	}	
+
+	friend void degistir(Payment* ptr, int val);
+	
+};
+
+void degistir(Payment* ptr,int val) {
+	ptr->tutar = val;
+}
+
+int main() {
+	Payment pay;
+	degistir(&pay, 4);
+	cout << pay.getValue()<<endl;
+	degistir(&pay, 12);
+	cout << pay.getValue();
+}
+
+
+
+
+#include <iostream>
+#include <string>
+
+//	Friend class 
+
+using namespace std;
+
+class Payment {
+private:
+	 int tutar;
+
+public:
+	int getValue() {
+		return tutar;
+	}	
+
+	friend class Test;
+};
+
+class Test {
+public:
+	void degistir(Payment* ptr, int val) {
+		ptr->tutar = val;
+	}
+};
+
+
+
+int main() {
+	Payment pay;
+	Test test;
+	test.degistir(&pay, 4);
+	cout << pay.getValue() << endl;
+
+}
+
+
+
+/////////////// TRY CATCH BLOCK \\\\\\\\\\\\\\\\\\
+
+#include <iostream>
+#include <string>
+
+//	TRY CATCH BLOCK 
+
+using namespace std;
+
+int debug_func(int a, int b) {
+	try
+	{
+		if (b == 0)
+			throw -1;
+		if (a == 0)
+			throw "Hatali deger";
+		return a / b;
+	}
+	catch (const char* err) {
+		cout << err;
+	}
+	catch (int err) {
+		cout << "Hatali deger " << err;
+	}
+}
+
+
+int main() {
+	//debug_func(15, 0);
+	debug_func(0, 15);
+
+}
+
+
+********/////////**********
+
+#include <iostream>
+#include <string>
+
+//	TRY CATCH BLOCK 
+
+using namespace std;
+
+class MyEx {
+private:
+	string message;
+
+public:
+	MyEx(string message) {
+		this->message = message;
+	}
+
+	string getError() {
+		return this->message;
+	}
+};
+
+int debug_func(int a, int b) {
+	try
+	{
+		if (b == 0)
+			throw MyEx("Entered number is invalid");
+		return a / b;
+	}
+	catch (MyEx err) {
+		cout << err.getError();
+	}
+}
+
+
+int main() {
+	debug_func(15, 0);
+}
+
+
+#include <iostream>
+#include <string>
+
+//	TRY CATCH BLOCK 
+
+using namespace std;
+
+class MyEx {
+private:
+	string message;
+
+public:
+	MyEx(string msg) : message(msg) {}; /// atama islemiiii !!!!
+
+	string getError() {
+		return this->message;
+	}
+};
+
+int debug_func(int a, int b) {
+	try
+	{
+		if (b == 0)
+			throw MyEx("Entered number is invalid");
+		return a / b;
+	}
+	catch (MyEx err) {
+		cout << err.getError();
+	}
+}
+
+
+int main() {
+	debug_func(15, 0);
+}
+
+
+//////////////////// ŞABLONLAR (TEMPLATE) /////////////////
+
+#include <iostream>
+
+
+using namespace std;
+
+template<typename T>
+T mymax(T a, T b) {
+	return a > b ? a : b;
+}
+
+int main() {
+	cout << mymax(10, 5) << endl;
+	cout << mymax(10.1, 5.3) << endl;
+	cout << mymax(10.4f, 50.2f) << endl;
+}
+
+
+**********************
+#include <iostream>
+
+
+using namespace std;
+
+template<typename T>
+T mymax(T a, T b) {
+	return a > b ? a : b;
+}
+
+int main() {
+	cout << mymax<int>(10, 5) << endl;
+	cout << mymax<double>(10.1, 5.3) << endl;
+	cout << mymax<float>(10.4f, 50.2f) << endl;
+}
+
+
+
+#include <iostream>
+
+
+using namespace std;
+
+template<typename T, typename U>
+T mymax(T a, U b) {
+	return a > b ? a : b;
+}
+
+int main() {
+	cout << mymax<int,float>(10, 5.1f) << endl;
+
+}
+
+
+/////////////// CLASS TEMPLATE //////////////
+
+#include <iostream>
+
+
+using namespace std;
+
+template<typename T>
+class Mat {
+public:
+	T a{};
+	T b{};
+
+	T topla() {
+		return a + b;
+	}
+};
+
+int main() {
+	Mat <int>mat;
+	mat.a = 10;
+	mat.b = 15;
+	cout << mat.topla();
+	
+}
+
+***************************************
+
+#include <iostream>
+
+
+using namespace std;
+
+class Kedi{};
+class Kopek{};
+
+
+template<class T>
+T* create_object() {
+	T object;
+	return &object;
+}
+
+template<typename U>
+
+U* make_object(U object) {
+	return &object;
+}
+
+int main() {
+	cout << create_object<Kedi>();
+	Kedi kedi;
+	Kedi* ptr = make_object<Kedi>(kedi);
+}
+
+
+
+
+
+
+
+
+/////////**** STACK HEAP *******\\\\\\\\\\
+
+#include <iostream>
+
+
+using namespace std;
+
+class Kedi {
+public:
+	string name;
+
+	Kedi() {
+		cout << "Created kedi class" << endl;
+	}
+	~Kedi() {
+		cout << "Deleted kedi class" << endl;
+	}
+};
+
+int main() {
+	int* ptr = new int;
+	*ptr = 10;
+	cout << *ptr << endl;
+	Kedi* kedi = new Kedi;
+	cout << "Program ended" << endl;
+	delete kedi;
+}
+
+
+// stack heap farkı
+
+---> stack parantez arası kadar
+int main() {
+	{
+		Kedi kedi;
+	}
+	cout << "Hello world.." << endl;
+}
+
+-> heap delete cagrılana kadar
+int main() {
+	Kedi* kedi;
+	{
+		kedi = new Kedi;
+	}
+	cout << "Hello world.." << endl;
+	delete kedi;
+}
+
+
+/////**** Dinamik dizii *****//////////
+
+
+#include <iostream>
+
+
+using namespace std;
+
+int main() {
+	size_t size;
+	int* ar;
+	int val{};
+
+	cout << "Dizi eleman sayisi giriniz.." << endl;
+	cin >> size;
+	ar = new int[size];
+	
+	for (size_t i = 0; i < size; ++i)
+	{
+		ar[i] = ++val;
+	}
+
+	cout << "Dizi elemanlari .." << endl;
+
+	for (size_t i = 0; i < size; i++)
+	{
+		cout << ar[i] << endl;
+	}
+
+	delete[] ar;
+}
+
+
+////////////		DANGLING POINTER		////////
+
+
+#include <iostream>
+
+
+using namespace std;
+
+int main() {
+
+	int* val = new int;
+	int* ptr = val;
+
+	delete val;
+	cout << *ptr;
+
+}
+
+
+//// YIKICI FONKSİYONLAR ASIL AMACI ALINAN HEAP BELLEK ALANINI ICERDE SINIF DELETE EDİLDİĞİNDE
+MEMMORY LEAK OLMAMASI ICIN DELETE EDILMELİ
+
+
+#include <iostream>
+
+
+using namespace std;
+
+class Kedi {
+public:
+	int* ptr1 = nullptr;
+	int* ptr2 = nullptr;
+
+
+	Kedi() {
+		cout << "Created kedi class" << endl;
+		ptr1 = new int;
+		ptr2 = new int;
+	}
+	~Kedi() {
+		cout << "Deleted kedi class" << endl;
+		delete ptr1;									//	ONEMLİ
+		delete ptr2;
+	}
+};
+
+int main() {
+	Kedi* kedi = new Kedi;
+	delete kedi;
+}
+
+
+
+//// C++11 shred_ptr		////////////////
+
+#include <iostream>
+
+
+using namespace std;
+
+class Kedi {
+public:
+	int value{};
+
+	Kedi() {
+		cout << "Created kedi class" << endl;
+
+	}
+	~Kedi() {
+		cout << "Deleted kedi class" << endl;
+
+	}
+};
+
+int main() {
+	shared_ptr<Kedi> kedi_ptr = make_shared<Kedi>(); // KEDİ PTR STACK DE OLUSTURULUR...
+	shared_ptr<Kedi> ptr = kedi_ptr;
+
+	cout << "value " << ptr->value << endl;
+	cout << "memory address " << ptr.get() << endl; // nesnenin gercek bellek adresi
+	cout << "shared memory pointer numberof element " << ptr.use_count() << endl; // kac isaretci
+
+}
+

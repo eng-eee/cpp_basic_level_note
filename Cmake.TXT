@@ -1,0 +1,47 @@
+						///////// KOMUT SATIRI LINKER OBJECT FILE /////////////////
+
+
+g++ -c main.cpp -> CREATED OBJECT FILE
+
+g++ main.o -o program.exe -> LINKER OPERATION
+
+
+						Makefile:::
+
+build:ofile linker run
+
+ofile:
+	g++ -c main.cpp func.cpp
+linker:
+	g++ main.o func.o -o program.exe
+run:
+	program.exe
+
+Makefile calıstırılması --->	cmd  mingw32-make
+
+
+
+			//*********************CMAKE***********\\\\\\\\\\\\\\\\\\\\\
+
+Derleme her OS ' de farklı derlenir 
+
+Cpp proje -> Ubuntu Cmake -> calistiralbilir dosya
+
+Cpp proje -> Windows Cmake -> calistiralbilir dosya
+
+Cpp proje -> Mac OS Cmake -> calistiralbilir dosya
+
+cmake_minimum_required(VERSION 3.21) -> min sistem gereksinimi
+
+project(ORNEK VERSION 1.0)	-> proje adi ve versiyonu
+set(CMAKE_CXX_STANDARD 11) -> min c++ version
+set(CMAKE_CXX_STANDARD_REQUIRED ON) -> min c++ versiyon yoksa calısmasın
+
+add_executable(outfile main.cpp) -> calıstirilabilir dosya adı ve hangi dosyadan alınacağı
+
+
+cmake -S . -B build -> -S source file . ise bulunduğu dizin -B build işlemi build ismi ise dosya adı(nereye derlencek)
+
+cmake -S . -B build -G "MinGW Makefiles"
+cmake -S . -B build -G "Visual Studio 16 2019"
+ cmake -S . -B build -G "Unix Makefiles"
