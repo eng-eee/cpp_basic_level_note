@@ -44,4 +44,4 @@ cmake -S . -B build -> -S source file . ise bulunduğu dizin -B build işlemi bu
 
 cmake -S . -B build -G "MinGW Makefiles"
 cmake -S . -B build -G "Visual Studio 16 2019"
- cmake -S . -B build -G "Unix Makefiles"
+cmake -S . -B build -G "Unix Makefiles"
