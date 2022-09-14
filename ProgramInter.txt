@@ -1488,3 +1488,17 @@ int main() {
 
 }
 
+
+POINTER TO CONST **//\\** CONST POINTER
+
+	//declares ptr a pointer to const int type
+	const int* ptr; 
+	//declares ptr1 a const pointer to int type
+	int * const ptr1 = &a; 
+
+	const int *p = nullptr; // p is a pointer to a const int
+	constexpr int *q = nullptr; // q is a const pointer to int
+
+///////////////////////////////
+
+
